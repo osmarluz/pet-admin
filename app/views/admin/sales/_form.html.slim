@@ -4,10 +4,9 @@
   == render 'fae/shared/errors'
 
   main.content
-    = fae_input f, :total
-    = fae_input f, :comments
-    = fae_input f, :status
-    = fae_input f, :date
-
     = fae_association f, :discount
     = fae_association f, :client
+    = fae_datepicker f,  :date
+
+    = fae_input f, :comments
+    = fae_pulldown f, :status, size: 'long', collection: Sale.statuses.to_a, selected: Sale.statuses[@item.status]
