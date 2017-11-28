@@ -1,24 +1,37 @@
-# README
+# Pet Admin
+> This is the repository for a Ruby on Rails application that creates a pet shop management system using the FAE gem.
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+![ruby](https://img.shields.io/badge/Ruby-2.3.5-red.svg)
+![rails](https://img.shields.io/badge/Rails-5.0.6-red.svg)
 
-Things you may want to cover:
+## Development Setup
 
-* Ruby version
+### 1. Build the containers
 
-* System dependencies
+`docker-compose build`
 
-* Configuration
+### 2. Create the database on the container
 
-* Database creation
+`docker-compose run --rm app bundle exec rails db:create`
 
-* Database initialization
+### 3. Run the database migrations on the container
 
-* How to run the test suite
+`docker-compose run --rm app bundle exec rails db:migrate`
 
-* Services (job queues, cache servers, search engines, etc.)
+### 4. Start the containers
 
-* Deployment instructions
+`docker-compose up`
 
-* ...
+## Meta
+
+Osmar Luz – osmar.luz@gmail.com
+
+[https://github.com/osmarluz](https://github.com/osmarluz/)
+
+## Contributing
+
+1. Fork it (<https://github.com/osmarluz/pet-admin>)
+2. Create your feature branch (`git checkout -b feature/fooBar`)
+3. Commit your changes (`git commit -m 'Add some fooBar'`)
+4. Push to the branch (`git push origin feature/fooBar`)
+5. Create a new Pull Request
