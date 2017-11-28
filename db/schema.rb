@@ -10,10 +10,19 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171127010239) do
+ActiveRecord::Schema.define(version: 20171128004821) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "campaign_clients", force: :cascade do |t|
+    t.integer  "campaign_id"
+    t.integer  "client_id"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+    t.index ["campaign_id"], name: "index_campaign_clients_on_campaign_id", using: :btree
+    t.index ["client_id"], name: "index_campaign_clients_on_client_id", using: :btree
+  end
 
   create_table "campaigns", force: :cascade do |t|
     t.string   "title"
@@ -186,6 +195,15 @@ ActiveRecord::Schema.define(version: 20171127010239) do
     t.index ["unlock_token"], name: "index_fae_users_on_unlock_token", unique: true, using: :btree
   end
 
+  create_table "product_sales", force: :cascade do |t|
+    t.integer  "product_id"
+    t.integer  "sale_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["product_id"], name: "index_product_sales_on_product_id", using: :btree
+    t.index ["sale_id"], name: "index_product_sales_on_sale_id", using: :btree
+  end
+
   create_table "products", force: :cascade do |t|
     t.string   "title"
     t.string   "description"
@@ -195,6 +213,15 @@ ActiveRecord::Schema.define(version: 20171127010239) do
     t.datetime "created_at",  null: false
     t.datetime "updated_at",  null: false
     t.index ["supplier_id"], name: "index_products_on_supplier_id", using: :btree
+  end
+
+  create_table "sale_services", force: :cascade do |t|
+    t.integer  "sale_id"
+    t.integer  "service_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["sale_id"], name: "index_sale_services_on_sale_id", using: :btree
+    t.index ["service_id"], name: "index_sale_services_on_service_id", using: :btree
   end
 
   create_table "sales", force: :cascade do |t|
@@ -228,7 +255,13 @@ ActiveRecord::Schema.define(version: 20171127010239) do
     t.datetime "updated_at", null: false
   end
 
+  add_foreign_key "campaign_clients", "campaigns"
+  add_foreign_key "campaign_clients", "clients"
+  add_foreign_key "product_sales", "products"
+  add_foreign_key "product_sales", "sales"
   add_foreign_key "products", "suppliers"
+  add_foreign_key "sale_services", "sales"
+  add_foreign_key "sale_services", "services"
   add_foreign_key "sales", "clients"
   add_foreign_key "sales", "discounts"
 end
