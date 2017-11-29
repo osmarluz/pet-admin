@@ -3,12 +3,15 @@ class Sale < ApplicationRecord
   enum status: { Finished: 0, Canceled: 1 }
   
   validates :client, presence: true
+
   belongs_to :discount
   belongs_to :client
+
   has_many :product_sales
-  has_many :products, through: :product_sales
+  has_many :products, through: :product_sales, dependent: :destroy
+
   has_many :sale_services
-  has_many :services, through: :sale_services
+  has_many :services, through: :sale_services, dependent: :destroy
 
   before_save :set_total
 
